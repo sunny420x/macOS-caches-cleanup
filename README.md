@@ -1,12 +1,28 @@
-# Is this script necessary ?
-Yes, I had facing a problem on my macOS which slowly leaving me just a 10GB of storage, using CC-Cleaner wasn't enough for me. So I downloaded a DaisyDisk to investigate on its free trial. What I have found is a bulk amount of cache files that after mannually removed them giving me like 80GB of free storage.
+# macOS Cache Cleaner
 
-So I was thinking why not create a script to remove them automatically for me and everyone ?
+This interactive script helps reclaim storage by removing selected, regenerable caches from your Mac. It previews available locations and their approximate sizes before asking you to choose what to clean.
 
-# How to use ?
-using this command to give to run.sh file permission to executes:
-<code>chmod +x run.sh</code>
-and run using this command (sudo is optional for some cases):
-<code>./run.sh</code>
-Or with sudo (superuser permission)
-<code>sudo ./run.sh</code>
+It can check user app caches, common browser caches, Xcode and Simulator caches, Adobe media caches, and selected developer package caches. The list is limited to known cache directories; it does not clean system-wide locations.
+
+## Use
+
+```sh
+chmod +x run.sh
+./run.sh
+```
+
+Choose cache locations by number, separated by spaces or commas, or enter `all`. Nothing is deleted until you type `CLEAN` at the final confirmation prompt. Enter `q` at the selection prompt to cancel.
+
+Preview the locations and estimated sizes without deleting anything:
+
+```sh
+./run.sh --dry-run
+```
+
+## Safety notes
+
+- Run as your normal macOS user. The script refuses to run as root; do not use `sudo`.
+- Quit the related applications before cleaning. Apps can recreate cache files while running.
+- Removing browser caches can sign you out of some sites or make pages load more slowly the next time.
+- Only the contents of listed cache directories are removed. Personal data directories such as Simulator device data, Android virtual devices, downloads, and project files are not included.
+- Space recovered is measured from the filesystem before and after cleanup, so it is approximate and may differ from the preview.
